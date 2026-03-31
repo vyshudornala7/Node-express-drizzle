@@ -60,7 +60,7 @@ const logInUser = (req,res) => {
             data:{
                 loggedUserData: existingUserData,
                 accessToken,
-                refreshToken
+                
             }
         })
     } catch (error) {
