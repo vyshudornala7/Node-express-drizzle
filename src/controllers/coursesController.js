@@ -10,6 +10,17 @@ const createCourse = (req,res) => {
         }
 
         const newCourse = req.body;
+        const userId = req?.user?.userId;
+
+
+        if(!userId) {
+            res.status(401).json({
+                success: false,
+                message:"user unauthorised"
+            })
+        }
+
+        newCourse.userId = userId
 
         if(!newCourse.name){
            throw new Error ("name for the course to create one, should be required!")
