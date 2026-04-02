@@ -5,6 +5,7 @@ import dotenv from "dotenv"; //loads environment variables from a .env file into
 import coursesRouter from "./routers/coursesRouter.js";
 import lessonsRouter from "./routers/lessonsRouter.js";
 import authRouter from "./routers/authRouter.js";
+import cookieParser from "cookie-parser";
 
 
 dotenv.config(); //TODO:  resolve the issue with path inside config
@@ -13,7 +14,9 @@ const PORT = process.env.PORT;
 
 const app = express();
 
-app.use(express.json())
+
+app.use(express.json())  // to accept the body from every req
+app.use(cookieParser())  // accept the cookies from every req
 
 app.get("/health",(req, res,next) => {
     res.status(200).json ({

@@ -76,6 +76,12 @@ const logInUser = (req,res) => {
 
 const refreshAccessToken = (req,res) => {
     try {
+        const refreshToken =  req.cookies.refreshToken;
+        console.log("Refresh Token:" ,refreshToken)
+        if(!refreshToken){
+            // get it from user table record 
+
+        }
         
     } catch (error) {
         res.status(400).json ({

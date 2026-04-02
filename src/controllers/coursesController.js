@@ -11,7 +11,7 @@ const createCourse = (req,res) => {
 
         const newCourse = req.body;
         const userId = req?.user?.userId;
-
+        
 
         if(!userId) {
             res.status(401).json({
