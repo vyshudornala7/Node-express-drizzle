@@ -1,5 +1,7 @@
+
 import Users from "../db/Users.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt-tokens.js";
+import jwt from "jsonwebtoken";
 
 const usersInstance = new Users();
 
@@ -82,12 +84,24 @@ const refreshAccessToken = (req,res) => {
             // get it from user table record 
 
         }
+
+        const decodedRefreshToken = jwt .verify(refreshToken,process.env.REFRESH_TOKEN_SECRET);
         
+        const newAccessToken = generateAccessToken(decodedRefreshToken.userId)
+
+        res.status(200).json ({
+            success: true,
+            data: {
+                accessToken: newAccessToken
+            },
+            message: " user auth refreshed successfully!"
+        })
+
     } catch (error) {
         res.status(400).json ({
             success: false,
             error:error?.message,
-            message:error?.message ?? "Refresh api failed!"
+            message:"User unauthorised"
         })
     }
 
